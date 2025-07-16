@@ -20,16 +20,16 @@ const Hero = () => {
         <div className="absolute bottom-10 right-10 w-1 h-1 bg-amber-800 rounded-full animate-pulse delay-1000"></div>
       </div>
 
+      {/* Logo/Brand - Top Left */}
+      <div className={`absolute top-8 left-8 z-20 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-amber-800 via-amber-600 to-amber-800 bg-clip-text text-transparent">
+          LEIYAN
+        </h1>
+        <p className="text-lg md:text-xl text-amber-700 font-medium">REALTORS</p>
+      </div>
+
       <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Logo/Brand */}
-          <div className={`mb-8 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-amber-800 via-amber-600 to-amber-800 bg-clip-text text-transparent">
-              LEIYAN
-            </h1>
-            <p className="text-xl md:text-2xl text-amber-700 font-medium mt-2">REALTORS</p>
-          </div>
-
           {/* Main Headline */}
           <div className={`mb-8 transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h2 className="text-4xl md:text-6xl font-bold text-amber-900 mb-4">
