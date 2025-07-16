@@ -108,14 +108,14 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
+      {/* Background Image with Lighter Overlay */}
       <div className="absolute inset-0 transition-all duration-1000 ease-in-out">
         <img 
           src={project.image} 
           alt={project.title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/80 via-amber-800/70 to-orange-900/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/50 via-amber-800/40 to-orange-900/50"></div>
       </div>
 
       {/* Animated Background Pattern */}
@@ -187,20 +187,20 @@ const Hero = () => {
             </p>
           </div>
 
-          {/* Key Stats */}
+          {/* Key Stats - More Minimal Design */}
           <div className={`mb-8 md:mb-12 px-4 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-amber-200/30 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
                 <Building2 className="w-6 h-6 md:w-8 md:h-8 text-amber-300 mx-auto mb-2 md:mb-3" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">{project.stats.size}</h3>
                 <p className="text-amber-200 text-sm md:text-base">{project.stats.unit}</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-amber-200/30 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
                 <Building2 className="w-6 h-6 md:w-8 md:h-8 text-amber-300 mx-auto mb-2 md:mb-3" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">{project.stats.floors}</h3>
                 <p className="text-amber-200 text-sm md:text-base">{project.stats.floorLabel}</p>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-amber-200/30 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
                 <Calendar className="w-6 h-6 md:w-8 md:h-8 text-amber-300 mx-auto mb-2 md:mb-3" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">{project.stats.completion}</h3>
                 <p className="text-amber-200 text-sm md:text-base">{project.stats.status}</p>
