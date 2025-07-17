@@ -1,0 +1,25 @@
+---
+deployment:
+  tasks:
+    # Set deployment path for leiyanrealtors.co.ke
+    - export DEPLOYPATH=/home/leiyanre/public_html/
+
+    # Install dependencies (if Node.js is available on your cPanel)
+    - npm ci --production=false
+
+    # Build the project for production
+    - npm run build
+
+    # Create backup of existing deployment (optional)
+    - /bin/mkdir -p $DEPLOYPATH/backup_$(date +%Y%m%d_%H%M%S) 2>/dev/null || :
+    - /bin/cp -R $DEPLOYPATH/* $DEPLOYPATH/backup_$(date +%Y%m%d_%H%M%S)/ 2>/dev/null || :
+
+    # Deploy built files from dist directory
+    - /bin/cp -R dist/* $DEPLOYPATH/
+
+    # Copy .htaccess for SPA routing (if it exists)
+    - /bin/cp .htaccess $DEPLOYPATH/ 2>/dev/null || :
+
+    # Set proper permissions
+    - /bin/chmod -R 644 $DEPLOYPATH/*
+    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;

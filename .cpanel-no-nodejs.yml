@@ -1,0 +1,23 @@
+# Alternative .cpanel.yml for hosting without Node.js support
+# Use this if your cPanel hosting doesn't support Node.js
+# You'll need to build locally and commit the dist folder to your repository
+
+---
+deployment:
+  tasks:
+    # Set deployment path for leiyanrealtors.co.ke
+    - export DEPLOYPATH=/home/leiyanre/public_html/
+    
+    # Create backup of existing deployment (optional)
+    - /bin/mkdir -p $DEPLOYPATH/backup_$(date +%Y%m%d_%H%M%S) 2>/dev/null || :
+    - /bin/cp -R $DEPLOYPATH/* $DEPLOYPATH/backup_$(date +%Y%m%d_%H%M%S)/ 2>/dev/null || :
+    
+    # Deploy built files from dist directory (must be pre-built and committed)
+    - /bin/cp -R dist/* $DEPLOYPATH/
+    
+    # Copy .htaccess for SPA routing
+    - /bin/cp .htaccess $DEPLOYPATH/ 2>/dev/null || :
+    
+    # Set proper permissions
+    - /bin/chmod -R 644 $DEPLOYPATH/*
+    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
