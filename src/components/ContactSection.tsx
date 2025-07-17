@@ -65,7 +65,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className={`text-4xl md:text-5xl font-bold text-amber-900 mb-6 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
@@ -80,7 +80,7 @@ const ContactSection = () => {
           {contactInfo.map((info, index) => (
             <Card 
               key={index} 
-              className={`group hover:shadow-xl transition-all duration-500 border-amber-200 hover:border-amber-300 bg-white transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+              className={`group hover:shadow-xl transition-all duration-500 border-amber-200 hover:border-amber-300 bg-white/80 backdrop-blur-sm transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
               <CardContent className="p-6 text-center hover:bg-gradient-to-br hover:from-white hover:to-amber-50 transition-all duration-300">

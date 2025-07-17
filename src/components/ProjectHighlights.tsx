@@ -64,7 +64,7 @@ const ProjectHighlights = () => {
   ];
 
   return (
-    <section id="highlights" className="py-20 bg-gradient-to-br from-white to-amber-50">
+    <section id="highlights" className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className={`text-4xl md:text-5xl font-bold text-amber-900 mb-6 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
