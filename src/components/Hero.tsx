@@ -84,38 +84,62 @@ const projects = [
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentProject, setCurrentProject] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
     
-    // Auto-scroll through projects
+    // Auto-scroll through projects with transition
     const interval = setInterval(() => {
-      setCurrentProject((prev) => (prev + 1) % projects.length);
-    }, 6000);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentProject((prev) => (prev + 1) % projects.length);
+        setIsTransitioning(false);
+      }, 500);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
 
   const nextProject = () => {
-    setCurrentProject((prev) => (prev + 1) % projects.length);
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentProject((prev) => (prev + 1) % projects.length);
+        setIsTransitioning(false);
+      }, 500);
+    }
   };
 
   const prevProject = () => {
-    setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
+        setIsTransitioning(false);
+      }, 500);
+    }
   };
 
   const project = projects[currentProject];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Lighter Overlay */}
+      {/* Background Image with Zooming Animation */}
       <div className="absolute inset-0 transition-all duration-1000 ease-in-out">
         <img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-transform duration-5000 ease-linear ${
+            isTransitioning 
+              ? 'scale-110 opacity-80' 
+              : 'scale-105 opacity-100'
+          }`}
+          style={{
+            transformOrigin: 'center center'
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/50 via-amber-800/40 to-orange-900/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-amber-800/30 to-orange-900/40"></div>
       </div>
 
       {/* Animated Background Pattern */}
@@ -140,7 +164,8 @@ const Hero = () => {
           variant="outline"
           size="icon"
           onClick={prevProject}
-          className="bg-white/20 backdrop-blur-sm border-amber-200/30 text-white hover:bg-amber-600/50 hover:text-white transition-all duration-300"
+          disabled={isTransitioning}
+          className="bg-white/15 backdrop-blur-sm border-amber-200/30 text-white hover:bg-amber-600/50 hover:text-white transition-all duration-300 disabled:opacity-50"
         >
           <ChevronLeft className="w-5 h-5" />
         </Button>
@@ -151,7 +176,8 @@ const Hero = () => {
           variant="outline"
           size="icon"
           onClick={nextProject}
-          className="bg-white/20 backdrop-blur-sm border-amber-200/30 text-white hover:bg-amber-600/50 hover:text-white transition-all duration-300"
+          disabled={isTransitioning}
+          className="bg-white/15 backdrop-blur-sm border-amber-200/30 text-white hover:bg-amber-600/50 hover:text-white transition-all duration-300 disabled:opacity-50"
         >
           <ChevronRight className="w-5 h-5" />
         </Button>
@@ -162,12 +188,21 @@ const Hero = () => {
         {projects.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentProject(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            onClick={() => {
+              if (!isTransitioning) {
+                setIsTransitioning(true);
+                setTimeout(() => {
+                  setCurrentProject(index);
+                  setIsTransitioning(false);
+                }, 500);
+              }
+            }}
+            disabled={isTransitioning}
+            className={`transition-all duration-300 ${
               index === currentProject 
-                ? 'bg-amber-300 w-8' 
-                : 'bg-white/40 hover:bg-white/60'
-            }`}
+                ? 'bg-amber-300 w-8 h-3 rounded-full' 
+                : 'bg-white/40 hover:bg-white/60 w-3 h-3 rounded-full'
+            } disabled:opacity-50`}
           />
         ))}
       </div>
@@ -175,7 +210,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 md:px-6 py-16 md:py-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Headline */}
-          <div className={`mb-6 md:mb-8 transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className={`mb-6 md:mb-8 transform transition-all duration-1000 delay-300 ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-80'}`}>
             <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-3 md:mb-4">
               {project.title}
             </h2>
@@ -188,19 +223,19 @@ const Hero = () => {
           </div>
 
           {/* Key Stats - More Minimal Design */}
-          <div className={`mb-8 md:mb-12 px-4 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className={`mb-8 md:mb-12 px-4 transform transition-all duration-1000 delay-500 ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-80'}`}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto">
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
                 <Building2 className="w-6 h-6 md:w-8 md:h-8 text-amber-300 mx-auto mb-2 md:mb-3" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">{project.stats.size}</h3>
                 <p className="text-amber-200 text-sm md:text-base">{project.stats.unit}</p>
               </div>
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
                 <Building2 className="w-6 h-6 md:w-8 md:h-8 text-amber-300 mx-auto mb-2 md:mb-3" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">{project.stats.floors}</h3>
                 <p className="text-amber-200 text-sm md:text-base">{project.stats.floorLabel}</p>
               </div>
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
                 <Calendar className="w-6 h-6 md:w-8 md:h-8 text-amber-300 mx-auto mb-2 md:mb-3" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">{project.stats.completion}</h3>
                 <p className="text-amber-200 text-sm md:text-base">{project.stats.status}</p>
@@ -209,7 +244,7 @@ const Hero = () => {
           </div>
 
           {/* Location Badge */}
-          <div className={`mb-6 md:mb-8 px-4 transform transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className={`mb-6 md:mb-8 px-4 transform transition-all duration-1000 delay-700 ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-80'}`}>
             <div className="inline-flex items-center gap-2 bg-amber-600/80 backdrop-blur-sm text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-semibold text-sm md:text-base">
               <MapPin className="w-4 h-4 md:w-5 md:h-5" />
               <span>Mavoko Township, Machakos County</span>
@@ -217,7 +252,7 @@ const Hero = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 transform transition-all duration-1000 delay-900 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+          <div className={`flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 transform transition-all duration-1000 delay-900 ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-80'}`}>
             <Button 
               size="lg" 
               className="bg-amber-600 hover:bg-amber-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold text-base md:text-lg shadow-lg hover:shadow-xl transition-all duration-300 group"

@@ -30,30 +30,42 @@ const ContactSection = () => {
       icon: Phone,
       title: "Call Us",
       details: ["0798 170 170", "0751 170 170"],
-      color: "text-green-600"
+      color: "text-green-600",
+      action: "tel"
     },
     {
       icon: Mail,
       title: "Email",
       details: ["leiyanrealtorsltd@gmail.com"],
-      color: "text-blue-600"
+      color: "text-blue-600",
+      action: "mailto"
     },
     {
       icon: MapPin,
       title: "Location",
       details: ["Mavoko Township", "Machakos County", "67075, 00200"],
-      color: "text-red-600"
+      color: "text-red-600",
+      action: null
     },
     {
       icon: Clock,
       title: "Availability",
       details: ["Monday - Friday: 8AM - 6PM", "Saturday: 9AM - 4PM"],
-      color: "text-purple-600"
+      color: "text-purple-600",
+      action: null
     }
   ];
 
+  const handleContactClick = (action: string | null, detail: string) => {
+    if (action === "tel") {
+      window.open(`tel:${detail.replace(/\s/g, '')}`, '_self');
+    } else if (action === "mailto") {
+      window.open(`mailto:${detail}`, '_self');
+    }
+  };
+
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-amber-100 to-orange-100">
+    <section id="contact" className="py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className={`text-4xl md:text-5xl font-bold text-amber-900 mb-6 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
@@ -68,7 +80,7 @@ const ContactSection = () => {
           {contactInfo.map((info, index) => (
             <Card 
               key={index} 
-              className={`group hover:shadow-xl transition-all duration-500 border-amber-200 hover:border-amber-300 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+              className={`group hover:shadow-xl transition-all duration-500 border-amber-200 hover:border-amber-300 bg-white transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
               <CardContent className="p-6 text-center hover:bg-gradient-to-br hover:from-white hover:to-amber-50 transition-all duration-300">
@@ -80,7 +92,13 @@ const ContactSection = () => {
                 </h3>
                 <div className="space-y-1">
                   {info.details.map((detail, idx) => (
-                    <p key={idx} className="text-amber-700 group-hover:text-amber-600 transition-colors">
+                    <p 
+                      key={idx} 
+                      className={`text-amber-700 group-hover:text-amber-600 transition-colors ${
+                        info.action ? 'cursor-pointer hover:underline' : ''
+                      }`}
+                      onClick={() => handleContactClick(info.action, detail)}
+                    >
                       {detail}
                     </p>
                   ))}
@@ -111,16 +129,11 @@ const ContactSection = () => {
               size="lg" 
               variant="outline" 
               className="border-2 border-white text-white hover:bg-white hover:text-amber-600 px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300"
+              onClick={() => window.open('mailto:leiyanrealtorsltd@gmail.com', '_self')}
             >
               Download Brochure
             </Button>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className={`text-center mt-12 transform transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <div className="text-3xl font-bold text-amber-800 mb-2">LEIYAN REALTORS</div>
-          <p className="text-amber-700">Premium Real Estate Solutions</p>
         </div>
       </div>
     </section>

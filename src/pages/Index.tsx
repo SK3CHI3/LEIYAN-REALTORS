@@ -8,6 +8,7 @@ import ProjectHighlights from '@/components/ProjectHighlights';
 import LocationSection from '@/components/LocationSection';
 import ProjectProgress from '@/components/ProjectProgress';
 import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
 
 const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,12 +18,13 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-amber-100 to-orange-100">
       <Hero />
       <ProjectHighlights />
       <LocationSection />
       <ProjectProgress />
       <ContactSection />
+      <Footer />
     </div>
   );
 };
