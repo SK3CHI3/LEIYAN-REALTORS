@@ -87,8 +87,20 @@ const Hero = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
-    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const element = document.getElementById('hero');
+    if (element) {
+      observer.observe(element);
+    }
+
     // Auto-scroll through projects with smooth transition
     const interval = setInterval(() => {
       setIsTransitioning(true);
@@ -98,7 +110,10 @@ const Hero = () => {
       }, 800);
     }, 7000);
 
-    return () => clearInterval(interval);
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
   }, []);
 
   const nextProject = () => {
@@ -124,7 +139,7 @@ const Hero = () => {
   const project = projects[currentProject];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Subtle Movement */}
       <div className="absolute inset-0">
         <div 
@@ -153,7 +168,7 @@ const Hero = () => {
       </div>
 
       {/* Logo/Brand - Top Left */}
-      <div className={`absolute top-4 left-4 md:top-8 md:left-8 z-20 transform transition-all duration-1500 ease-out ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
+      <div className={`absolute top-4 left-4 md:top-8 md:left-8 z-20 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-amber-100">
           LEIYAN
         </h1>
@@ -186,7 +201,7 @@ const Hero = () => {
       </div>
 
       {/* Project Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-3">
+      <div className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-3 transition-all duration-1000 delay-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
         {projects.map((_, index) => (
           <button
             key={index}
@@ -212,7 +227,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 md:px-6 py-16 md:py-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Headline */}
-          <div className={`mb-6 md:mb-8 transform transition-all duration-1500 delay-300 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-60'}`}>
+          <div className={`mb-6 md:mb-8 transform transition-all duration-1000 delay-300 ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-3 md:mb-4">
               {project.title}
             </h2>
@@ -225,7 +240,7 @@ const Hero = () => {
           </div>
 
           {/* Key Stats */}
-          <div className={`mb-8 md:mb-12 px-4 transform transition-all duration-1500 delay-500 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-60'}`}>
+          <div className={`mb-8 md:mb-12 px-4 transform transition-all duration-1000 delay-500 ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto">
               <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/8 transition-all duration-700">
                 <Building2 className="w-6 h-6 md:w-8 md:h-8 text-amber-200 mx-auto mb-2 md:mb-3" />
@@ -246,7 +261,7 @@ const Hero = () => {
           </div>
 
           {/* Location Badge */}
-          <div className={`mb-6 md:mb-8 px-4 transform transition-all duration-1500 delay-700 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-60'}`}>
+          <div className={`mb-6 md:mb-8 px-4 transform transition-all duration-1000 delay-700 ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="inline-flex items-center gap-2 bg-amber-600/60 backdrop-blur-sm text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-semibold text-sm md:text-base">
               <MapPin className="w-4 h-4 md:w-5 md:h-5" />
               <span>Mavoko Township, Machakos County</span>
@@ -254,7 +269,7 @@ const Hero = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 transform transition-all duration-1500 delay-900 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-60'}`}>
+          <div className={`flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 transform transition-all duration-1000 delay-900 ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <Button 
               size="lg" 
               className="bg-amber-600 hover:bg-amber-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold text-base md:text-lg shadow-lg hover:shadow-xl transition-all duration-700 group"
@@ -273,15 +288,17 @@ const Hero = () => {
         </div>
       </div>
 
-      <style>{`
-        @keyframes gentle-drift {
-          0% { transform: scale(1.1) translateX(0) translateY(0); }
-          25% { transform: scale(1.12) translateX(-1px) translateY(-2px); }
-          50% { transform: scale(1.11) translateX(1px) translateY(-1px); }
-          75% { transform: scale(1.13) translateX(-0.5px) translateY(1px); }
-          100% { transform: scale(1.1) translateX(0) translateY(0); }
-        }
-      `}</style>
+      <style>
+        {`
+          @keyframes gentle-drift {
+            0% { transform: scale(1.1) translateX(0) translateY(0); }
+            25% { transform: scale(1.12) translateX(-1px) translateY(-2px); }
+            50% { transform: scale(1.11) translateX(1px) translateY(-1px); }
+            75% { transform: scale(1.13) translateX(-0.5px) translateY(1px); }
+            100% { transform: scale(1.1) translateX(0) translateY(0); }
+          }
+        `}
+      </style>
     </section>
   );
 };
