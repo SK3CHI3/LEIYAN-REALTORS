@@ -128,37 +128,36 @@ const Hero = () => {
       {/* Background Image with Subtle Movement */}
       <div className="absolute inset-0">
         <div 
-          className={`w-full h-full transition-all duration-1000 ease-out ${
-            isTransitioning ? 'opacity-70 scale-105' : 'opacity-100 scale-100'
+          className={`w-full h-full transition-all duration-[2000ms] ease-out ${
+            isTransitioning ? 'opacity-60 scale-[1.02]' : 'opacity-100 scale-100'
           }`}
         >
           <img 
             src={project.image} 
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-[12000ms] ease-linear scale-[1.02] hover:scale-[1.05]"
+            className="w-full h-full object-cover transition-transform duration-[20000ms] ease-linear"
             style={{
-              transformOrigin: 'center center',
-              animation: 'subtle-zoom 12s ease-in-out infinite alternate'
+              transform: 'scale(1.1)',
+              animation: 'gentle-drift 20s ease-in-out infinite alternate'
             }}
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/50 via-amber-800/40 to-orange-900/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/60 via-amber-800/50 to-orange-900/60"></div>
       </div>
 
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-1 h-1 bg-amber-200 rounded-full animate-pulse"></div>
-        <div className="absolute top-20 right-20 w-1 h-1 bg-amber-300 rounded-full animate-pulse delay-500"></div>
-        <div className="absolute bottom-20 left-20 w-1 h-1 bg-amber-400 rounded-full animate-pulse delay-1000"></div>
-        <div className="absolute bottom-10 right-10 w-1 h-1 bg-amber-200 rounded-full animate-pulse delay-1500"></div>
+      {/* Subtle Background Elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-amber-200 rounded-full animate-pulse"></div>
+        <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-amber-300 rounded-full animate-pulse delay-1000"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-amber-400 rounded-full animate-pulse delay-2000"></div>
       </div>
 
       {/* Logo/Brand - Top Left */}
-      <div className={`absolute top-4 left-4 md:top-8 md:left-8 z-20 transform transition-all duration-1200 ease-out ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-amber-200">
+      <div className={`absolute top-4 left-4 md:top-8 md:left-8 z-20 transform transition-all duration-1500 ease-out ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-amber-100">
           LEIYAN
         </h1>
-        <p className="text-base md:text-lg lg:text-xl text-amber-300 font-medium">REALTORS</p>
+        <p className="text-base md:text-lg lg:text-xl text-amber-200 font-medium">REALTORS</p>
       </div>
 
       {/* Navigation Controls */}
@@ -168,7 +167,7 @@ const Hero = () => {
           size="icon"
           onClick={prevProject}
           disabled={isTransitioning}
-          className="bg-white/10 backdrop-blur-md border-amber-200/20 text-white hover:bg-amber-600/30 hover:text-white transition-all duration-500 disabled:opacity-30"
+          className="bg-white/5 backdrop-blur-sm border-amber-200/20 text-white hover:bg-amber-600/20 hover:text-white transition-all duration-700 disabled:opacity-20"
         >
           <ChevronLeft className="w-5 h-5" />
         </Button>
@@ -180,7 +179,7 @@ const Hero = () => {
           size="icon"
           onClick={nextProject}
           disabled={isTransitioning}
-          className="bg-white/10 backdrop-blur-md border-amber-200/20 text-white hover:bg-amber-600/30 hover:text-white transition-all duration-500 disabled:opacity-30"
+          className="bg-white/5 backdrop-blur-sm border-amber-200/20 text-white hover:bg-amber-600/20 hover:text-white transition-all duration-700 disabled:opacity-20"
         >
           <ChevronRight className="w-5 h-5" />
         </Button>
@@ -197,15 +196,15 @@ const Hero = () => {
                 setTimeout(() => {
                   setCurrentProject(index);
                   setIsTransitioning(false);
-                }, 800);
+                }, 1000);
               }
             }}
             disabled={isTransitioning}
-            className={`transition-all duration-500 ease-out ${
+            className={`transition-all duration-700 ease-out ${
               index === currentProject 
                 ? 'bg-amber-300 w-8 h-2 rounded-full' 
-                : 'bg-white/30 hover:bg-white/50 w-2 h-2 rounded-full'
-            } disabled:opacity-30`}
+                : 'bg-white/20 hover:bg-white/40 w-2 h-2 rounded-full'
+            } disabled:opacity-20`}
           />
         ))}
       </div>
@@ -213,52 +212,52 @@ const Hero = () => {
       <div className="container mx-auto px-4 md:px-6 py-16 md:py-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Headline */}
-          <div className={`mb-6 md:mb-8 transform transition-all duration-1200 delay-200 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-70'}`}>
+          <div className={`mb-6 md:mb-8 transform transition-all duration-1500 delay-300 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-60'}`}>
             <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-3 md:mb-4">
               {project.title}
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-amber-200 mb-4 md:mb-6">
+            <p className="text-lg md:text-xl lg:text-2xl text-amber-100 mb-4 md:mb-6">
               {project.subtitle}
             </p>
-            <p className="text-base md:text-lg text-amber-100 max-w-2xl mx-auto leading-relaxed px-4">
+            <p className="text-base md:text-lg text-amber-50/90 max-w-2xl mx-auto leading-relaxed px-4">
               {project.description}
             </p>
           </div>
 
           {/* Key Stats */}
-          <div className={`mb-8 md:mb-12 px-4 transform transition-all duration-1200 delay-400 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-70'}`}>
+          <div className={`mb-8 md:mb-12 px-4 transform transition-all duration-1500 delay-500 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-60'}`}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-3xl mx-auto">
-              <div className="bg-white/8 backdrop-blur-md rounded-lg p-4 md:p-6 border border-white/15 hover:bg-white/12 transition-all duration-500">
-                <Building2 className="w-6 h-6 md:w-8 md:h-8 text-amber-300 mx-auto mb-2 md:mb-3" />
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/8 transition-all duration-700">
+                <Building2 className="w-6 h-6 md:w-8 md:h-8 text-amber-200 mx-auto mb-2 md:mb-3" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">{project.stats.size}</h3>
-                <p className="text-amber-200 text-sm md:text-base">{project.stats.unit}</p>
+                <p className="text-amber-100 text-sm md:text-base">{project.stats.unit}</p>
               </div>
-              <div className="bg-white/8 backdrop-blur-md rounded-lg p-4 md:p-6 border border-white/15 hover:bg-white/12 transition-all duration-500">
-                <Building2 className="w-6 h-6 md:w-8 md:h-8 text-amber-300 mx-auto mb-2 md:mb-3" />
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/8 transition-all duration-700">
+                <Building2 className="w-6 h-6 md:w-8 md:h-8 text-amber-200 mx-auto mb-2 md:mb-3" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">{project.stats.floors}</h3>
-                <p className="text-amber-200 text-sm md:text-base">{project.stats.floorLabel}</p>
+                <p className="text-amber-100 text-sm md:text-base">{project.stats.floorLabel}</p>
               </div>
-              <div className="bg-white/8 backdrop-blur-md rounded-lg p-4 md:p-6 border border-white/15 hover:bg-white/12 transition-all duration-500">
-                <Calendar className="w-6 h-6 md:w-8 md:h-8 text-amber-300 mx-auto mb-2 md:mb-3" />
+              <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/10 hover:bg-white/8 transition-all duration-700">
+                <Calendar className="w-6 h-6 md:w-8 md:h-8 text-amber-200 mx-auto mb-2 md:mb-3" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">{project.stats.completion}</h3>
-                <p className="text-amber-200 text-sm md:text-base">{project.stats.status}</p>
+                <p className="text-amber-100 text-sm md:text-base">{project.stats.status}</p>
               </div>
             </div>
           </div>
 
           {/* Location Badge */}
-          <div className={`mb-6 md:mb-8 px-4 transform transition-all duration-1200 delay-600 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-70'}`}>
-            <div className="inline-flex items-center gap-2 bg-amber-600/70 backdrop-blur-md text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-semibold text-sm md:text-base">
+          <div className={`mb-6 md:mb-8 px-4 transform transition-all duration-1500 delay-700 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-60'}`}>
+            <div className="inline-flex items-center gap-2 bg-amber-600/60 backdrop-blur-sm text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-semibold text-sm md:text-base">
               <MapPin className="w-4 h-4 md:w-5 md:h-5" />
               <span>Mavoko Township, Machakos County</span>
             </div>
           </div>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 transform transition-all duration-1200 delay-800 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-70'}`}>
+          <div className={`flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 transform transition-all duration-1500 delay-900 ease-out ${isVisible && !isTransitioning ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-60'}`}>
             <Button 
               size="lg" 
-              className="bg-amber-600 hover:bg-amber-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold text-base md:text-lg shadow-lg hover:shadow-xl transition-all duration-500 group"
+              className="bg-amber-600 hover:bg-amber-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold text-base md:text-lg shadow-lg hover:shadow-xl transition-all duration-700 group"
             >
               <span>Explore Opportunities</span>
               <ArrowRight className="w-4 h-4 md:w-5 md:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -266,7 +265,7 @@ const Hero = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-2 border-amber-300 text-amber-100 hover:bg-amber-600 hover:text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold text-base md:text-lg transition-all duration-500"
+              className="border-2 border-amber-200 text-amber-50 hover:bg-amber-600 hover:text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold text-base md:text-lg transition-all duration-700"
             >
               Contact Us Today
             </Button>
@@ -274,11 +273,13 @@ const Hero = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes subtle-zoom {
-          0% { transform: scale(1.02); }
-          50% { transform: scale(1.04); }
-          100% { transform: scale(1.02); }
+      <style>{`
+        @keyframes gentle-drift {
+          0% { transform: scale(1.1) translateX(0) translateY(0); }
+          25% { transform: scale(1.12) translateX(-1px) translateY(-2px); }
+          50% { transform: scale(1.11) translateX(1px) translateY(-1px); }
+          75% { transform: scale(1.13) translateX(-0.5px) translateY(1px); }
+          100% { transform: scale(1.1) translateX(0) translateY(0); }
         }
       `}</style>
     </section>
